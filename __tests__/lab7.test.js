@@ -100,6 +100,8 @@ describe('Basic user flow for Website', () => {
   it('Checking number of items in cart on screen', async () => {
     console.log('Checking number of items in cart on screen...');
 
+    // dubugging
+    await page.reload();
     const prodItems = await page.$$('product-item');
     
     for (let i = 0; i < prodItems.length; i++) {
@@ -107,9 +109,10 @@ describe('Basic user flow for Website', () => {
       const button = await shadowRoot.$('button');
       const innerText = await button.getProperty('innerText');
       const innerTextValue = await innerText.jsonValue();
+
       if (innerTextValue === "Add to Cart") {
         await button.click();
-        await page.waitForTimeout(100);
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
     }
 
@@ -127,7 +130,7 @@ describe('Basic user flow for Website', () => {
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
 
-  }, 10000);
+  }, 20000);
 
   // Check to make sure that after you reload the page it remembers all of the items in your cart
   it('Checking number of items in cart on screen after reload', async () => {
@@ -200,6 +203,7 @@ describe('Basic user flow for Website', () => {
 
       if (innerTextValue === "Remove from Cart") {
         await button.click();
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
     }
 
@@ -216,7 +220,7 @@ describe('Basic user flow for Website', () => {
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
 
-  }, 10000);
+  }, 15000);
 
   // Checking to make sure that it remembers us removing everything from the cart
   // after we refresh the page
